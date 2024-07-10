@@ -38,7 +38,7 @@ func main() {
 			SlowMo:         playwright.Float(2000),
 			ExecutablePath: playwright.String("/Applications/Chromium.app/Contents/MacOS/Chromium"),
 			Args: []string{
-				"--disk-cache-dir=/Users/tar/Documents/play/ggm/.cache",
+				"--disk-cache-dir=.cache",
 				"--enable-bfcache",
 			},
 		},

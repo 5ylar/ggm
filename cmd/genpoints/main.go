@@ -45,7 +45,19 @@ func rr(lat1, lon1, lat2, lon2 float64, result *R) {
 }
 
 func main() {
-	z1 := []float64{13.971514, 100.403076}
+	startlat, err := strconv.ParseFloat(os.Args[1], 64)
+
+	if err != nil {
+		panic(err)
+	}
+
+	startlng, err := strconv.ParseFloat(os.Args[2], 64)
+
+	if err != nil {
+		panic(err)
+	}
+
+	z1 := []float64{startlat, startlng}
 	// z2 := []float64{13.981117, 100.798338}
 	//
 	// var result R
@@ -150,9 +162,9 @@ func distance(lat1 float64, lng1 float64, lat2 float64, lng2 float64, unit ...st
 }
 
 func movePoint(lat, lon, distance, angle float64) (newLat, newLon float64) {
-	const R = 6378137 // Radius of the Earth in meters
+	const R = 6378137 // radius of the Earth (meters)
 
-	// Convert from degrees to radians
+	// degrees to radians
 	lat = lat * math.Pi / 180
 	lon = lon * math.Pi / 180
 	angle = angle * math.Pi / 180
@@ -160,7 +172,7 @@ func movePoint(lat, lon, distance, angle float64) (newLat, newLon float64) {
 	newLat = math.Asin(math.Sin(lat)*math.Cos(distance/R) + math.Cos(lat)*math.Sin(distance/R)*math.Cos(angle))
 	newLon = lon + math.Atan2(math.Sin(angle)*math.Sin(distance/R)*math.Cos(lat), math.Cos(distance/R)-math.Sin(lat)*math.Sin(newLat))
 
-	// Convert from radians back to degrees
+	// radians to degrees
 	newLat = newLat * 180 / math.Pi
 	newLon = newLon * 180 / math.Pi
 
